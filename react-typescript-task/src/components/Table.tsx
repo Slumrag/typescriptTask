@@ -1,7 +1,14 @@
 import React from "react";
 import { CurrencyLabel } from "@skbkontur/react-ui";
-
-const TableItem: React.FC = ({ vehicle, number }) => {
+import { Vehicle, VehicleFilter } from "../data/vehicles/contracts";
+interface TableItemProps {
+    vehicle: Vehicle;
+    number: number;
+}
+interface TableProps {
+    vehicles: Vehicle[];
+}
+const TableItem: React.FC<TableItemProps> = ({ vehicle, number }) => {
     return (
         <tr>
             <td>{number}</td>
@@ -13,20 +20,20 @@ const TableItem: React.FC = ({ vehicle, number }) => {
     );
 };
 
-export const Table: React.FC = ({ vehicles }) => {
+export const Table: React.FC<TableProps> = ({ vehicles }) => {
     return (
         <table>
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Название</th>
-                <th>Цена, ₽</th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Название</th>
+                    <th>Цена, ₽</th>
+                </tr>
             </thead>
             <tbody>
-            {vehicles.map((x, i) => (
-                <TableItem key={x.id} number={i + 1} vehicle={x} />
-            ))}
+                {vehicles.map((x, i) => (
+                    <TableItem key={x.id} number={i + 1} vehicle={x} />
+                ))}
             </tbody>
         </table>
     );
