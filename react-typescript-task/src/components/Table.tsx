@@ -1,6 +1,6 @@
 import React from "react";
 import { CurrencyLabel } from "@skbkontur/react-ui";
-import { Vehicle, VehicleFilter, VehicleType, vehicleTypeTitles } from "../data/vehicles/contracts";
+import { Vehicle, VehicleType, vehicleTypeTitles } from "../data/vehicles/contracts";
 interface TableItemProps {
     vehicle: Vehicle;
     number: number;
@@ -24,21 +24,26 @@ const TableItem: React.FC<TableItemProps> = ({ vehicle, number, type }) => {
 };
 
 export const Table: React.FC<TableProps> = ({ vehicles }) => {
+    const tableBody = vehicles.map((x, i) => (
+        <TableItem key={x.id} number={i + 1} vehicle={x} type={x.type} />
+    ))
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Название</th>
-                    <th>Цена, ₽</th>
-                    <th>Тип ТС</th>
-                </tr>
-            </thead>
-            <tbody>
-                {vehicles.map((x, i) => (
-                    <TableItem key={x.id} number={i + 1} vehicle={x} type={x.type} />
-                ))}
-            </tbody>
-        </table>
+        <>
+            {vehicles.length > 0 ? <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Название</th>
+                        <th>Цена, ₽</th>
+                        <th>Тип ТС</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableBody}
+                </tbody>
+            </table>
+                : <p>Автомобили не найдены</p>}
+
+        </>
     );
 };
